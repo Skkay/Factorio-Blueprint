@@ -1,0 +1,18 @@
+import zlib
+import base64
+import json
+from collections import Counter
+
+def decode_blueprint(bp_string):
+	decoded_data = base64.b64decode(bp_string[1:])
+	return zlib.decompress(decoded_data)
+
+
+bp_base64 = "0eNqlme1u6jAMhu8lv8uU77bcytGECoumSCWt2nQaQr33k4L2oYHbxPkFFPLYcezXSbiSYzuZfrDOk/2V2FPnRrL/dyWjfXdNuzzzl96QPfmwg5/Ck4K45rw8uP9iV5G5INa9mU+yZ3OBHMnn14IY56235u7A7cPl4Kbz0QwB/T3afPaDGcedHxo39t3gd0fT+kDvuzEM79xiOiB3/EUV5BLeqBc1L579QfJ0pNhAinQk3UDKdCTbQKpk5BZRJxO3pl0mE7fWpkombiVQnZFA4jmS0QfmFCpkeB+68LqZ6Qu1+Kq7bvL95MkzK4/VNPat9T58+cTnO1sCHvMUFltnCczsaersc0oKWjeVEIWNIGhEEJJjUOI1AApBhS9ZCFkjQpFaDJwmLN16LXCWoQgcYOa0KQYwRUYFQH7KjN7Hb0v1Zgdzun+vn1lQWerA/trg38lhHZQbOiNQjwafWSjxrTMuahW+0qGlrtPFDshEQfGiAXgnGB4JeclzdGgl8WBVEiKj7CkwDYlnQkiVs1+hDwkcExlMf/ypShrXFUSZIWc0pvJFhbcArUaNr3UAKWnGbmRlfUHJlQw9Bxqjh5LjBReKkUArDkSU+MNKXBQUXiTjDGj8gT2qccoSL2ZxBiq8AaA1yTpHLflv5QLrR1G8rADtTzH8Ligq1Irn7Owi4yJy2kakDYnWLij0+LsaIAdVzvEyMgz4yxsoDPizJRSGnKNlXBg0xQsIcCDWSRc3fBXF0++AgGOvFgkouuqUTL9MgpxKuZFZj5ROPu5APuELA/KtSr68gHyr8Q0busPNKAAIyfDdDUJyfHeDkAKt2hBRonetEBG/A4SIGr1pvRFfC2K9OYfhP/9JFaRtwtDwrDpUh2PTNu50S+0PM4z3/UTFZCnrUpeMaqXn+T8F/u0O"
+bp_json = json.loads(decode_blueprint(bp_base64))
+
+items = []
+for item in bp_json["blueprint"]["entities"]:
+    items.append(item["name"])
+
+print(Counter(items))
